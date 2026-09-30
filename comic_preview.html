@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ComicCraft - Comic Preview</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+            font-family: Arial, sans-serif;
+            background: #111827;
+            color: #f9fafb;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 36px;
+        }
+
+        .panel {
+            background: #1f2937;
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .panel h2 {
+            margin-top: 0;
+            color: #60a5fa;
+        }
+
+        .scene {
+            color: #cbd5e1;
+            font-style: italic;
+            line-height: 1.7;
+        }
+
+        .narration {
+            line-height: 1.7;
+            margin-top: 15px;
+        }
+
+        .dialogue {
+            margin-top: 15px;
+            padding: 15px;
+            background: #111827;
+            border-left: 4px solid #60a5fa;
+            border-radius: 8px;
+            line-height: 1.6;
+        }
+
+        .download-area {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 30px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .download-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-left: 10px;
+            padding: 15px 30px;
+            background: #374151;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 18px;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 40px;
+            background: #1f2937;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🎨 ComicCraft</h1>
+
+    <h1>Comic Preview</h1>
+
+    {% if panels %}
+
+        {% for panel in panels %}
+
+        <section class="panel">
+
+            <h2>
+                Panel {{ panel.panel_number }}:
+                {{ panel.title }}
+            </h2>
+
+            {% if panel.image_path %}
+                <img
+                    src="{{ panel.image_path }}"
+                    alt="Comic panel"
+                    style="max-width:100%; border-radius:12px; margin:15px 0;"
+                >
+            {% endif %}
+
+            <p class="scene">
+                {{ panel.scene_description }}
+            </p>
+
+            {% if panel.narration %}
+            <div class="narration">
+                <strong>Narration:</strong><br>
+                {{ panel.narration }}
+            </div>
+            {% endif %}
+
+            {% if panel.dialogue %}
+            <div class="dialogue">
+                <strong>💬 Dialogue:</strong><br>
+                {{ panel.dialogue }}
+            </div>
+            {% endif %}
+
+        </section>
+
+        {% endfor %}
+
+        <div class="download-area">
+
+            <a
+                href="/download-pdf"
+                class="download-btn"
+            >
+                📥 Download Comic as PDF
+            </a>
+
+            <a
+                href="/"
+                class="back-btn"
+            >
+                ← Create Another Comic
+            </a>
+
+        </div>
+
+    {% else %}
+
+        <div class="empty">
+            <p>
+                No comic has been generated yet.
+            </p>
+
+            <a href="/" class="download-btn">
+                Create Comic
+            </a>
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>
